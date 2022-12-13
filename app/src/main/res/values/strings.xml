@@ -6,4 +6,5 @@
     <string name="search">Search</string>
     <string name="favorite">Favorite</string>
     <string name="emptyList">No item saved</string>
+    <string name="searchHere">Search...</string>
 </resources>

@@ -7,11 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.keyvani.newsapiappmvvm.R
 import com.keyvani.newsapiappmvvm.adapter.NewsAdapter
 import com.keyvani.newsapiappmvvm.databinding.FragmentFavoriteBinding
-import com.keyvani.newsapiappmvvm.models.NewsEntity
-import com.keyvani.newsapiappmvvm.viewmodel.NewsViewModel
+import com.keyvani.newsapiappmvvm.models.Article
+import com.keyvani.newsapiappmvvm.utils.initRecycler
+import com.keyvani.newsapiappmvvm.viewmodel.DbViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -24,10 +29,10 @@ class FavoriteFragment : Fragment() {
     lateinit var newsAdapter: NewsAdapter
 
     @Inject
-    lateinit var entity: NewsEntity
+    lateinit var entity: Article
 
     //Other
-    private val viewModel: NewsViewModel by viewModels()
+    private val viewModel: DbViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -45,6 +50,10 @@ class FavoriteFragment : Fragment() {
         //InitViews
         binding.apply {
 
+            //Show All Fav
+
+
+
             newsAdapter.setOnItemClickListener {
                 val bundle = Bundle().apply {
                     putSerializable("detail", it)
@@ -52,6 +61,53 @@ class FavoriteFragment : Fragment() {
                 findNavController().navigate(
                     R.id.ToDetailsFragment, bundle
                 )
+            }
+
+            val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
+                ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+            ) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    return true
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val position = viewHolder.adapterPosition
+                    val article = newsAdapter.differ.currentList[position]
+                    viewModel.deleteFavorite(article)
+                    Snackbar.make(view, "Successfully deleted article", Snackbar.LENGTH_LONG).apply {
+                        setAction("Undo") {
+                            viewModel.favoriteNews(article)
+                        }
+                        show()
+                    }
+                }
+            }
+
+            ItemTouchHelper(itemTouchHelperCallback).apply {
+                attachToRecyclerView(rvFavoriteNews)
+            }
+
+            viewModel.loadFavoriteList()
+
+            viewModel.favoriteList.observe(viewLifecycleOwner) {
+                newsAdapter.differ.submitList(it)
+                rvFavoriteNews.initRecycler(LinearLayoutManager(requireContext()), newsAdapter)
+            }
+
+            //Empty items
+            viewModel.empty.observe(viewLifecycleOwner) {
+                if (it) {
+                    conEmptyLayout.visibility = View.VISIBLE
+                    rvFavoriteNews.visibility = View.GONE
+                } else {
+                    conEmptyLayout.visibility = View.GONE
+                    rvFavoriteNews.visibility = View.VISIBLE
+                }
             }
 
 

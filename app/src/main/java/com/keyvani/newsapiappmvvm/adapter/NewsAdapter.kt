@@ -53,7 +53,7 @@ class NewsAdapter @Inject constructor() : RecyclerView.Adapter<NewsAdapter.ViewH
                     crossfade(800)
                 }
                 tvNewsDetails.text = item.description
-                tvReference.text = item.source.name
+                tvReference.text = item.source?.name
                 tvPublishedDate.text = item.publishedAt
                 //Click
                 root.setOnClickListener {

@@ -66,12 +66,13 @@
             <TextView
                 android:id="@+id/tvNewsDetails"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:ellipsize="end"
                 android:fontFamily="sans-serif-light"
-                android:maxLines="3"
+                android:maxLines="2"
                 android:textSize="12sp"
                 android:text="News Details"
+                app:layout_constraintBottom_toTopOf="@id/tvReference"
                 app:layout_constraintEnd_toEndOf="@+id/tvTitre"
                 app:layout_constraintStart_toStartOf="@id/tvTitre"
                 app:layout_constraintTop_toBottomOf="@id/tvTitre" />

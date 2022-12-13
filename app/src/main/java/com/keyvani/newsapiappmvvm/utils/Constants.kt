@@ -6,4 +6,5 @@ object Constants {
     const val CONNECTION_TIME = 60L
     const val NEWS_TABLE = "news_table"
     const val NEWS_DATABASE = "news_database"
+    const val SEARCH_DELAY_TIME = 500L
 }

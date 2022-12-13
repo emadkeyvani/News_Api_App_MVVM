@@ -3,7 +3,7 @@ package com.keyvani.newsapiappmvvm.di
 import android.content.Context
 import androidx.room.Room
 import com.keyvani.newsapiappmvvm.db.NewsDatabase
-import com.keyvani.newsapiappmvvm.models.NewsEntity
+import com.keyvani.newsapiappmvvm.models.Article
 import com.keyvani.newsapiappmvvm.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -31,5 +31,5 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideEntity() = NewsEntity()
+    fun provideEntity() = Article()
 }

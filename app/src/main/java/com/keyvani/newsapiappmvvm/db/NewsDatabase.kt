@@ -2,9 +2,11 @@ package com.keyvani.newsapiappmvvm.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.keyvani.newsapiappmvvm.models.NewsEntity
+import androidx.room.TypeConverters
+import com.keyvani.newsapiappmvvm.models.Article
 
-@Database(entities = [NewsEntity::class], version = 3, exportSchema = false)
+@Database(entities = [Article::class], version = 6, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class NewsDatabase : RoomDatabase() {
     abstract fun newsDao() :NewsDao
 }

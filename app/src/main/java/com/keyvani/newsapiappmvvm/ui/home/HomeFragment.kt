@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.keyvani.newsapiappmvvm.R
 import com.keyvani.newsapiappmvvm.adapter.NewsAdapter
 import com.keyvani.newsapiappmvvm.databinding.FragmentHomeBinding
-import com.keyvani.newsapiappmvvm.viewmodel.NewsViewModel
+import com.keyvani.newsapiappmvvm.viewmodel.ApiViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -24,12 +24,12 @@ class HomeFragment : Fragment() {
     lateinit var newsAdapter: NewsAdapter
 
     //Other
-    private val viewModel: NewsViewModel by viewModels()
+    private val viewModel: ApiViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //Api call
-        viewModel.loadBreakingNews("us", 1)
+        viewModel.loadBreakingNews("us")
     }
 
     override fun onCreateView(

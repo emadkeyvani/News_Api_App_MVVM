@@ -8,9 +8,10 @@ import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import com.keyvani.newsapiappmvvm.databinding.FragmentDetailsBinding
-import com.keyvani.newsapiappmvvm.models.NewsEntity
-import com.keyvani.newsapiappmvvm.viewmodel.NewsViewModel
+import com.keyvani.newsapiappmvvm.models.Article
+import com.keyvani.newsapiappmvvm.viewmodel.DbViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -20,13 +21,11 @@ class DetailsFragment : Fragment() {
     private lateinit var binding: FragmentDetailsBinding
 
     @Inject
-    lateinit var entity: NewsEntity
-
+    lateinit var entity: Article
 
     //Other
-    private val viewModel: NewsViewModel by viewModels()
+    private val viewModel: DbViewModel by viewModels()
     val args: DetailsFragmentArgs by navArgs()
-
 
 
     override fun onCreateView(
@@ -47,6 +46,17 @@ class DetailsFragment : Fragment() {
             webView.apply {
                 webViewClient = WebViewClient()
                 loadUrl(detail.url)
+            }
+
+            fab.setOnClickListener {
+                entity.title = detail.title
+                entity.description = detail.description
+                entity.publishedAt = detail.publishedAt
+                entity.urlToImage = detail.urlToImage
+                entity.source = detail.source
+                entity.url=detail.url
+                viewModel.favoriteNews(entity)
+                Snackbar.make(view, "Article saved successfully", Snackbar.LENGTH_SHORT).show()
             }
 
 
