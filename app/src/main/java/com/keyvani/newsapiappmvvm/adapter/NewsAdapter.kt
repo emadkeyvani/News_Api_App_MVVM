@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.keyvani.newsapiappmvvm.databinding.ItemNewsBinding
-import com.keyvani.newsapiappmvvm.models.NewsResponse.Article
+import com.keyvani.newsapiappmvvm.models.Article
 import javax.inject.Inject
 
 class NewsAdapter @Inject constructor() : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
@@ -53,10 +53,10 @@ class NewsAdapter @Inject constructor() : RecyclerView.Adapter<NewsAdapter.ViewH
                     crossfade(800)
                 }
                 tvNewsDetails.text = item.description
-                tvReference.text = item.source?.name
+                tvReference.text = item.source.name
                 tvPublishedDate.text = item.publishedAt
                 //Click
-                root.setOnClickListener{
+                root.setOnClickListener {
                     onItemClickListener?.let {
                         it(item)
                     }

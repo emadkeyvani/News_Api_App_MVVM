@@ -23,6 +23,7 @@
             <ImageView
                 android:layout_width="100dp"
                 android:id="@+id/ivNewsPoster"
+                android:scaleType="centerCrop"
                 android:layout_height="100dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
@@ -36,38 +37,44 @@
                 app:layout_constraintStart_toStartOf="@id/ivNewsPoster"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 android:layout_marginTop="3dp"
                 android:text="Reference"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvReference"
                 android:id="@+id/tvPublishedDate"
                 android:layout_marginEnd="5dp"
                 android:text="published date"
                 android:textSize="10sp"
-                app:layout_constraintTop_toTopOf="@id/tvReference"/>
+                app:layout_constraintTop_toBottomOf="@id/tvReference"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@id/ivNewsPoster"
                 app:layout_constraintTop_toTopOf="@id/ivNewsPoster"
                 android:textStyle="bold"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-light"
                 android:text="HeadTitre"
                 android:id="@+id/tvTitre"
                 android:textColor="@color/black"
                 android:layout_marginHorizontal="5dp"
                 app:layout_constraintEnd_toEndOf="parent"/>
+
             <TextView
-                android:layout_width="0dp"
                 android:id="@+id/tvNewsDetails"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/tvTitre"
-                app:layout_constraintTop_toBottomOf="@id/tvTitre"
+                android:ellipsize="end"
                 android:fontFamily="sans-serif-light"
+                android:maxLines="3"
+                android:textSize="12sp"
                 android:text="News Details"
-                android:maxLines="5"/>
+                app:layout_constraintEnd_toEndOf="@+id/tvTitre"
+                app:layout_constraintStart_toStartOf="@id/tvTitre"
+                app:layout_constraintTop_toBottomOf="@id/tvTitre" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

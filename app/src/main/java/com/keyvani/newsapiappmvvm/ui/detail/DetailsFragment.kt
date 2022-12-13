@@ -1,61 +1,57 @@
-package com.keyvani.newsapiappmvvm.ui.favorite
+package com.keyvani.newsapiappmvvm.ui.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.keyvani.newsapiappmvvm.R
-import com.keyvani.newsapiappmvvm.adapter.NewsAdapter
-import com.keyvani.newsapiappmvvm.databinding.FragmentFavoriteBinding
+import androidx.navigation.fragment.navArgs
+import com.keyvani.newsapiappmvvm.databinding.FragmentDetailsBinding
 import com.keyvani.newsapiappmvvm.models.NewsEntity
 import com.keyvani.newsapiappmvvm.viewmodel.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FavoriteFragment : Fragment() {
+class DetailsFragment : Fragment() {
     //Binding
-    private lateinit var binding: FragmentFavoriteBinding
-
-    @Inject
-    lateinit var newsAdapter: NewsAdapter
+    private lateinit var binding: FragmentDetailsBinding
 
     @Inject
     lateinit var entity: NewsEntity
 
+
     //Other
     private val viewModel: NewsViewModel by viewModels()
+    val args: DetailsFragmentArgs by navArgs()
+
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+        binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-        //InitViews
+        //InitView
         binding.apply {
 
-            newsAdapter.setOnItemClickListener {
-                val bundle = Bundle().apply {
-                    putSerializable("detail", it)
-                }
-                findNavController().navigate(
-                    R.id.ToDetailsFragment, bundle
-                )
+            //WebView
+            val detail = args.detail
+            webView.apply {
+                webViewClient = WebViewClient()
+                loadUrl(detail.url)
             }
 
 
         }
+
 
     }
 

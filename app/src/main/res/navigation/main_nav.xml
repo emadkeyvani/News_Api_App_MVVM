@@ -20,4 +20,16 @@
         android:name="com.keyvani.newsapiappmvvm.ui.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.keyvani.newsapiappmvvm.ui.detail.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details">
+        <argument
+            android:name="detail"
+            app:argType="com.keyvani.newsapiappmvvm.models.Article" />
+    </fragment>
+    <action
+        android:id="@+id/ToDetailsFragment"
+        app:destination="@id/detailsFragment" />
 </navigation>

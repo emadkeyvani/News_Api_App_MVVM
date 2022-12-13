@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
 
 
-    <color name="cardColor">#EAF6F6</color>
+    <color name="cardColor">#F3F8F8</color>
+    <color name="red">#D80630</color>
 </resources>

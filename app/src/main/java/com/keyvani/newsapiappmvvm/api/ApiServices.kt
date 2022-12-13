@@ -7,22 +7,19 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiServices {
-    @GET("top-headlines")
 
+    @GET("top-headlines")
     suspend fun getBreakingNews(
-        @Query("country") countryCode: String = "us",
-        @Query("page") pageNumber: Int = 1,
-        @Query("apikey") apikey: String = "ecf3da52e8da449bb5effb0b1b940725"
-    ): Response<MutableList<NewsResponse.Article>>
+        @Query("country") countryCode: String ,
+        @Query("page") pageNumber: Int
+    ): Response<NewsResponse>
 
 
     @GET("everything")
-
     suspend fun searchBreakingNews(
         @Query("q") searchQuery: String,
-        @Query("page") pageNumber: Int = 1,
-        @Query("apikey") apikey: String = Constants.API_KEY
-    ): Response<NewsResponse.Article>
+        @Query("page") pageNumber: Int = 1
+    ): Response<NewsResponse>
 
 
 }

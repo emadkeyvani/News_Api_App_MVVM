@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.keyvani.newsapiappmvvm.R
 import com.keyvani.newsapiappmvvm.adapter.NewsAdapter
 import com.keyvani.newsapiappmvvm.databinding.FragmentHomeBinding
-import com.keyvani.newsapiappmvvm.utils.Constants
 import com.keyvani.newsapiappmvvm.viewmodel.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -28,7 +29,7 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //Api call
-        viewModel.loadBreakingNews("us", 1, "ecf3da52e8da449bb5effb0b1b940725")
+        viewModel.loadBreakingNews("us", 1)
     }
 
     override fun onCreateView(
@@ -43,14 +44,23 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //InitViews
         binding.apply {
+
             //Get breaking news
-            viewModel.breakingNewsList.observe(viewLifecycleOwner) {
-                newsAdapter.differ.submitList(it)
+            viewModel.breakingNews.observe(viewLifecycleOwner) {
+                newsAdapter.differ.submitList(it.articles)
                 //Recycler
                 rvBreakingNews.apply {
                     layoutManager = LinearLayoutManager(context)
                     adapter = newsAdapter
                 }
+            }
+            newsAdapter.setOnItemClickListener {
+                val bundle = Bundle().apply {
+                    putSerializable("detail",it)
+                }
+                findNavController().navigate(
+                    R.id.ToDetailsFragment, bundle
+                )
             }
             viewModel.loading.observe(viewLifecycleOwner) {
                 if (it) {
@@ -65,6 +75,7 @@ class HomeFragment : Fragment() {
             }
 
         }
+
     }
 
 
