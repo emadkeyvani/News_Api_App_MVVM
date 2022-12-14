@@ -13,7 +13,7 @@ interface NewsDao {
     @Delete
     fun deleteNews(entity: Article)
 
-    @Query("SELECT * FROM ${Constants.NEWS_TABLE}")
+    @Query("SELECT * FROM ${Constants.NEWS_TABLE} ORDER BY id DESC")
     fun getAllNews(): MutableList<Article>
 
     @Query("SELECT EXISTS (SELECT 1 FROM ${Constants.NEWS_TABLE} WHERE id = :newsId)")

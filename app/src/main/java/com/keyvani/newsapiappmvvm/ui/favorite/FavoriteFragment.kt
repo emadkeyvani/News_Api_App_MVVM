@@ -31,6 +31,7 @@ class FavoriteFragment : Fragment() {
     @Inject
     lateinit var entity: Article
 
+
     //Other
     private val viewModel: DbViewModel by viewModels()
 
@@ -51,9 +52,13 @@ class FavoriteFragment : Fragment() {
         binding.apply {
 
             //Show All Fav
-
-
-
+            viewModel.loadFavoriteList()
+            //List
+            viewModel.favoriteList.observe(viewLifecycleOwner) {
+                newsAdapter.differ.submitList(it)
+                rvFavoriteNews.initRecycler(LinearLayoutManager(requireContext()), newsAdapter)
+            }
+            //Click
             newsAdapter.setOnItemClickListener {
                 val bundle = Bundle().apply {
                     putSerializable("detail", it)
@@ -62,6 +67,8 @@ class FavoriteFragment : Fragment() {
                     R.id.ToDetailsFragment, bundle
                 )
             }
+
+            //Swipe delete
 
             val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
                 ItemTouchHelper.UP or ItemTouchHelper.DOWN,
@@ -83,8 +90,8 @@ class FavoriteFragment : Fragment() {
                         setAction("Undo") {
                             viewModel.favoriteNews(article)
                         }
-                        show()
-                    }
+
+                    }.show()
                 }
             }
 
@@ -92,12 +99,6 @@ class FavoriteFragment : Fragment() {
                 attachToRecyclerView(rvFavoriteNews)
             }
 
-            viewModel.loadFavoriteList()
-
-            viewModel.favoriteList.observe(viewLifecycleOwner) {
-                newsAdapter.differ.submitList(it)
-                rvFavoriteNews.initRecycler(LinearLayoutManager(requireContext()), newsAdapter)
-            }
 
             //Empty items
             viewModel.empty.observe(viewLifecycleOwner) {
@@ -112,6 +113,7 @@ class FavoriteFragment : Fragment() {
 
 
         }
+
 
     }
 

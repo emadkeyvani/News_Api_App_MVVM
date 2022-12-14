@@ -61,7 +61,7 @@ class SearchFragment : Fragment() {
                 }
 
             }
-            // Get movies list
+            // Get News list
             viewModel.breakingNews.observe(viewLifecycleOwner) {
                 searchAdapter.differ.submitList(it.articles)
                 //RecyclerView
