@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/cardColor"
+    android:background="@color/background"
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
@@ -29,9 +29,9 @@
         android:background="@drawable/bg_rounded_bottom_nav"
         app:elevation="3dp"
         app:itemIconSize="30dp"
-        app:itemIconTint="@color/jet"
+        app:itemIconTint="@color/background"
         app:itemRippleColor="@android:color/darker_gray"
-        app:itemTextColor="@color/jet"
+        app:itemTextColor="@color/background"
         app:labelVisibilityMode="selected"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/menu_main" />

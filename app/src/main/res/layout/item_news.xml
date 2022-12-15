@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="5dp"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardItemLayout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        app:cardBackgroundColor="@color/white"
         android:layout_margin="7dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,47 +24,43 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:layout_width="100dp"
                 android:id="@+id/ivNewsPoster"
-                android:scaleType="centerCrop"
-                android:layout_height="100dp"
+                android:layout_width="100dp"
+                android:layout_height="0dp"
+                android:layout_marginVertical="10dp"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
-                android:layout_width="wrap_content"
                 android:id="@+id/tvReference"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/ivNewsPoster"
-                app:layout_constraintStart_toStartOf="@id/ivNewsPoster"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="12sp"
-                android:layout_marginTop="3dp"
-                tools:text="Reference"/>
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/tvReference"
-                android:id="@+id/tvPublishedDate"
-                android:layout_marginEnd="5dp"
-                tools:text="published date"
-                android:textSize="10sp"
-                app:layout_constraintTop_toBottomOf="@id/tvReference"/>
+                android:layout_marginTop="3dp"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/tvTitre"
+                app:layout_constraintStart_toStartOf="@id/tvTitre"
+                app:layout_constraintTop_toTopOf="@id/ivNewsPoster"
+                tools:text="Reference" />
+
             <TextView
+                android:id="@+id/tvTitre"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@id/ivNewsPoster"
-                app:layout_constraintTop_toTopOf="@id/ivNewsPoster"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:fontFamily="sans-serif-light"
-                tools:text="HeadTitre"
-                android:id="@+id/tvTitre"
-                android:textColor="@color/black"
                 android:layout_marginHorizontal="5dp"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                android:fontFamily="sans-serif-light"
+                android:maxLines="3"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivNewsPoster"
+                app:layout_constraintTop_toBottomOf="@id/tvReference"
+                tools:text="HeadTitre" />
 
             <TextView
                 android:id="@+id/tvNewsDetails"
@@ -72,13 +68,23 @@
                 android:layout_height="0dp"
                 android:ellipsize="end"
                 android:fontFamily="sans-serif-light"
-                android:maxLines="2"
+                android:maxLines="3"
                 android:textSize="12sp"
-                tools:text="News Details"
-                app:layout_constraintBottom_toTopOf="@id/tvReference"
+                app:layout_constraintBottom_toBottomOf="@id/ivNewsPoster"
                 app:layout_constraintEnd_toEndOf="@+id/tvTitre"
                 app:layout_constraintStart_toStartOf="@id/tvTitre"
-                app:layout_constraintTop_toBottomOf="@id/tvTitre" />
+                app:layout_constraintTop_toBottomOf="@id/tvTitre"
+                tools:text="News Details" />
+
+            <TextView
+                android:id="@+id/tvPublishedDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:textSize="8sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvNewsDetails"
+                tools:text="published date" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

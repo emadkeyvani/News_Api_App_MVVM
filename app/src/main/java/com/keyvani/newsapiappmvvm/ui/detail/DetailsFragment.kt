@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.keyvani.newsapiappmvvm.databinding.FragmentDetailsBinding
@@ -48,7 +49,7 @@ class DetailsFragment : Fragment() {
                 loadUrl(detail.url)
             }
 
-            fab.setOnClickListener {
+            ivFav.setOnClickListener {
                 entity.title = detail.title
                 entity.description = detail.description
                 entity.publishedAt = detail.publishedAt
@@ -57,6 +58,11 @@ class DetailsFragment : Fragment() {
                 entity.url=detail.url
                 viewModel.favoriteNews(entity)
                 Snackbar.make(view, "Article saved successfully", Snackbar.LENGTH_SHORT).show()
+            }
+
+            //Back
+            ivBack.setOnClickListener {
+                findNavController().navigateUp()
             }
 
 
