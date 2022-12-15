@@ -50,13 +50,8 @@ class DetailsFragment : Fragment() {
             }
 
             ivFav.setOnClickListener {
-                entity.title = detail.title
-                entity.description = detail.description
-                entity.publishedAt = detail.publishedAt
-                entity.urlToImage = detail.urlToImage
-                entity.source = detail.source
-                entity.url=detail.url
-                viewModel.favoriteNews(entity)
+
+                viewModel.saveNews(detail)
                 Snackbar.make(view, "Article saved successfully", Snackbar.LENGTH_SHORT).show()
             }
 

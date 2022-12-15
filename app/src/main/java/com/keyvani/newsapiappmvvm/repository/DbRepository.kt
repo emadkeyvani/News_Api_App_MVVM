@@ -6,8 +6,7 @@ import javax.inject.Inject
 
 class DbRepository @Inject constructor(private val dao: NewsDao) {
 
-    suspend fun insertNews(entity: Article) = dao.insertNews(entity)
-    fun deleteNews(entity: Article) = dao.deleteNews(entity)
-    suspend fun existNews(id: Int) = dao.existsNews(id)
+    suspend fun upsertNews(entity: Article) = dao.upsert(entity)
+    suspend fun deleteNews(entity: Article) = dao.deleteNews(entity)
     fun getAllNews() = dao.getAllNews()
 }

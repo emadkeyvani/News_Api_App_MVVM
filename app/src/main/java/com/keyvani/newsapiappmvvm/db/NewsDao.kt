@@ -1,5 +1,6 @@
 package com.keyvani.newsapiappmvvm.db
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.keyvani.newsapiappmvvm.models.Article
 import com.keyvani.newsapiappmvvm.utils.Constants
@@ -8,13 +9,13 @@ import com.keyvani.newsapiappmvvm.utils.Constants
 interface NewsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNews(entity: Article)
+    suspend fun upsert(entity: Article) :Long
 
     @Delete
-    fun deleteNews(entity: Article)
+    suspend fun deleteNews(entity: Article)
 
     @Query("SELECT * FROM ${Constants.NEWS_TABLE} ORDER BY id DESC")
-    fun getAllNews(): MutableList<Article>
+    fun getAllNews(): LiveData<List<Article>>
 
     @Query("SELECT EXISTS (SELECT 1 FROM ${Constants.NEWS_TABLE} WHERE id = :newsId)")
     suspend fun existsNews(newsId: Int): Boolean

@@ -18,7 +18,7 @@ interface ApiServices {
     @GET("everything")
     suspend fun searchBreakingNews(
         @Query("q") searchQuery: String,
-        @Query("page") pageNumber: Int = 1
+        @Query("page") pageNumber: Int
     ): Response<NewsResponse>
 
 

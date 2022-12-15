@@ -1,4 +1,4 @@
-package com.keyvani.newsapiappmvvm.adapter
+package com.keyvani.newsapiappmvvm.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

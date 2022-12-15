@@ -7,4 +7,5 @@ object Constants {
     const val NEWS_TABLE = "news_table"
     const val NEWS_DATABASE = "news_database"
     const val SEARCH_DELAY_TIME = 500L
+    const val QUERY_PAGE_SIZE = 20
 }

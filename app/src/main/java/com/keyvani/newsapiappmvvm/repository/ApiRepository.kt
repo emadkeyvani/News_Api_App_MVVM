@@ -8,7 +8,7 @@ class ApiRepository @Inject constructor(private val api: ApiServices) {
     //Api
     suspend fun getBreakingNews(countryCode: String, pageNumber: Int) = api.getBreakingNews(countryCode, pageNumber)
 
-    suspend fun searchNews(q: String, page: Int) = api.searchBreakingNews(q, page)
+    suspend fun searchNews(searchQuery: String, pageNumber: Int) = api.searchBreakingNews(searchQuery, pageNumber)
 
 
 }
