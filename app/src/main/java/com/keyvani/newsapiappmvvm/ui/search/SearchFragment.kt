@@ -16,6 +16,7 @@ import com.keyvani.newsapiappmvvm.R
 import com.keyvani.newsapiappmvvm.adapters.NewsAdapter
 import com.keyvani.newsapiappmvvm.databinding.FragmentSearchBinding
 import com.keyvani.newsapiappmvvm.utils.Constants
+import com.keyvani.newsapiappmvvm.utils.Constants.QUERY_PAGE_SIZE
 import com.keyvani.newsapiappmvvm.utils.Constants.SEARCH_DELAY_TIME
 import com.keyvani.newsapiappmvvm.utils.Resource
 import com.keyvani.newsapiappmvvm.viewmodel.ApiViewModel
@@ -61,8 +62,8 @@ class SearchFragment : Fragment() {
                     delay(SEARCH_DELAY_TIME)
                     it?.let {
                         val search = it.toString()
-                        if (search.isNotEmpty()) {
-                            viewModel.searchNews(search)
+                        if (it.toString().isNotEmpty()) {
+                            viewModel.searchNews(it.toString())
                         }
                     }
 
@@ -74,13 +75,12 @@ class SearchFragment : Fragment() {
                     is Resource.Success -> {
                         hideProgressBar()
                         response.data?.let { newsResponse ->
-                            searchAdapter.differ.submitList(newsResponse.articles.toList())
-                            val totalPages = (newsResponse.totalResults?.div(Constants.QUERY_PAGE_SIZE) )?.plus(2)
+                            searchAdapter.differ.submitList(newsResponse.articles)
+                           /* val totalPages = (newsResponse.totalResults?.div(QUERY_PAGE_SIZE))?.plus(2)
                             isLastPage = viewModel.searchNewsPage == totalPages
-                            if(isLastPage){
-                                rvSearchedNews.setPadding(0,0,0,0)
-                            }
-
+                            if (isLastPage) {
+                                rvSearchedNews.setPadding(0, 0, 0, 0)
+                            }*/
 
 
                         }
@@ -114,30 +114,18 @@ class SearchFragment : Fragment() {
 
     }
 
-    private fun setupRecyclerView() {
-        searchAdapter = NewsAdapter()
-        binding.apply {
-            rvSearchedNews.apply {
-                layoutManager = LinearLayoutManager(context)
-                adapter = searchAdapter
-                addOnScrollListener(this@SearchFragment.scrollListener)
-            }
-        }
 
-    }
-    var isLoading = false
+
+   /* var isLoading = false
     var isLastPage = false
     var isScrolling = false
 
     val scrollListener = object : RecyclerView.OnScrollListener() {
-        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            super.onScrollStateChanged(recyclerView, newState)
-            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
-                isScrolling = true
-            }
-        }
+
+
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
+
             val layoutManager = recyclerView.layoutManager as LinearLayoutManager
             val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
             val visibleItemCount = layoutManager.childCount
@@ -146,25 +134,45 @@ class SearchFragment : Fragment() {
             val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotAtBeginning = firstVisibleItemPosition >= 0
-            val isTotalMoreThanVisible = totalItemCount >= Constants.QUERY_PAGE_SIZE
+            val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
             val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning &&
                     isTotalMoreThanVisible && isScrolling
             if (shouldPaginate) {
-                viewModel.searchNews(binding.edtSearch.text.toString())
+                val search = binding.edtSearch.text.toString()
+                viewModel.searchNews(search)
                 isScrolling = false
 
             }
         }
-    }
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
 
+            if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                isScrolling = true
+            }
+        }
+    }
+*/
 
     private fun hideProgressBar() {
         binding.pbSearch.visibility = View.INVISIBLE
-        isLoading = false
+        //isLoading = false
     }
 
     private fun showProgressBar() {
         binding.pbSearch.visibility = View.VISIBLE
-        isLoading = true
+        //isLoading = true
+    }
+
+    private fun setupRecyclerView() {
+        searchAdapter = NewsAdapter()
+        binding.apply {
+            rvSearchedNews.apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = searchAdapter
+                // addOnScrollListener(this@SearchFragment.scrollListener)
+            }
+        }
+
     }
 }

@@ -15,6 +15,7 @@ import com.keyvani.newsapiappmvvm.R
 import com.keyvani.newsapiappmvvm.adapters.NewsAdapter
 import com.keyvani.newsapiappmvvm.databinding.FragmentHomeBinding
 import com.keyvani.newsapiappmvvm.utils.Constants
+import com.keyvani.newsapiappmvvm.utils.Constants.QUERY_PAGE_SIZE
 import com.keyvani.newsapiappmvvm.utils.Resource
 import com.keyvani.newsapiappmvvm.viewmodel.ApiViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,7 +61,7 @@ class HomeFragment : Fragment() {
                         hideProgressBar()
                         response.data?.let { newsResponse ->
                             newsAdapter.differ.submitList(newsResponse.articles.toList())
-                            val totalPages = (newsResponse.totalResults?.div(Constants.QUERY_PAGE_SIZE))?.plus(2)
+                            val totalPages = (newsResponse.totalResults?.div(QUERY_PAGE_SIZE))?.plus(2)
                             isLastPage = viewModel.breakingNewsPage == totalPages
                             if(isLastPage){
                                 rvBreakingNews.setPadding(0,0,0,0)
@@ -131,7 +132,7 @@ class HomeFragment : Fragment() {
             val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotAtBeginning = firstVisibleItemPosition >= 0
-            val isTotalMoreThanVisible = totalItemCount >= Constants.QUERY_PAGE_SIZE
+            val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
             val shouldPaginate = isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning &&
                     isTotalMoreThanVisible && isScrolling
             if (shouldPaginate) {

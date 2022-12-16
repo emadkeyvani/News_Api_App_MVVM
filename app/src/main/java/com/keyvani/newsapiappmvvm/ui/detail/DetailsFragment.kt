@@ -46,7 +46,17 @@ class DetailsFragment : Fragment() {
             val detail = args.detail
             webView.apply {
                 webViewClient = WebViewClient()
-                loadUrl(detail.url)
+                if (detail.url.isEmpty()){
+                    webView.visibility = View.INVISIBLE
+                    tvIsNotAvailable.visibility = View.VISIBLE
+                    ivFav.visibility = View.INVISIBLE
+
+                }else{
+                    tvIsNotAvailable.visibility = View.GONE
+                    ivFav.visibility = View.VISIBLE
+                    loadUrl(detail.url)
+                }
+
             }
 
             ivFav.setOnClickListener {

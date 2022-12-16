@@ -20,6 +20,8 @@ class ApiViewModel @Inject constructor(private val repository: ApiRepository) : 
     var breakingNewsPage = 1
     var breakingNewsResponse: NewsResponse? = null
     var searchNewsResponse: NewsResponse? = null
+    var newSearchQuery: String? = null
+    var oldSearchQuery: String? = null
 
 
     init {
@@ -58,12 +60,23 @@ class ApiViewModel @Inject constructor(private val repository: ApiRepository) : 
     }
 
     private fun handleSearchNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
-        if (response.isSuccessful) {
+
+        if(response.isSuccessful) {
             response.body()?.let { resultResponse ->
-                searchNewsPage++
-                if (searchNewsResponse == null) {
+                return Resource.Success(resultResponse)
+            }
+        }
+        return Resource.Error(response.message())
+        /*if (response.isSuccessful) {
+            response.body()?.let { resultResponse ->
+
+                if (searchNewsResponse == null || newSearchQuery != oldSearchQuery) {
+                    searchNewsPage = 1
+                    oldSearchQuery = newSearchQuery
+                    searchNewsResponse = resultResponse
                     searchNewsResponse = resultResponse
                 } else {
+                    searchNewsPage++
                     val oldNews = searchNewsResponse?.articles
                     val newNews = resultResponse.articles
                     oldNews?.addAll(newNews)
@@ -71,8 +84,10 @@ class ApiViewModel @Inject constructor(private val repository: ApiRepository) : 
                 return Resource.Success(searchNewsResponse ?: resultResponse)
             }
         }
-        return Resource.Error(response.message())
+        return Resource.Error(response.message())*/
     }
+
+
 }
 
 
