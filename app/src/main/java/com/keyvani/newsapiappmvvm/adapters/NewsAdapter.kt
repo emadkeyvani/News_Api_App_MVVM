@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.keyvani.newsapiappmvvm.R
 import com.keyvani.newsapiappmvvm.databinding.ItemNewsBinding
 import com.keyvani.newsapiappmvvm.models.Article
 import javax.inject.Inject

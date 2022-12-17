@@ -7,6 +7,6 @@
     <string name="favorite">Favorite</string>
     <string name="emptyList">No item saved</string>
     <string name="searchHere">Search...</string>
-    <string name="us_breaking_news">US Breaking News</string>
+    <string name="us_breaking_news">U.S. Breaking News</string>
     <string name="is_not_available">Sorry,page is not available</string>
 </resources>
