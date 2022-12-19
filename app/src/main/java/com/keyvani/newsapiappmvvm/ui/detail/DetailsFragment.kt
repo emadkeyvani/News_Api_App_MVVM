@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.webkit.WebViewClient
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
+import com.keyvani.newsapiappmvvm.R
 import com.keyvani.newsapiappmvvm.databinding.FragmentDetailsBinding
 import com.keyvani.newsapiappmvvm.models.Article
 import com.keyvani.newsapiappmvvm.viewmodel.DbViewModel
@@ -56,6 +59,8 @@ class DetailsFragment : Fragment() {
                     ivFav.visibility = View.VISIBLE
                     loadUrl(detail.url)
                 }
+                /*webView.layoutParams = LinearLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+                webView.setBackgroundColor(resources.getColor(R.color.background))*/
 
             }
 

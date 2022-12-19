@@ -1,11 +1,15 @@
 package com.keyvani.newsapiappmvvm.ui.home
 
+import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -33,11 +37,8 @@ class HomeFragment : Fragment() {
     private val viewModel: ApiViewModel by viewModels()
 
     val TAG = "HomeFragment"
+    var doubleBackToExitPressedOnce = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -96,7 +97,9 @@ class HomeFragment : Fragment() {
 
         }
 
+
     }
+
 
     private fun setupRecyclerView() {
         newsAdapter = NewsAdapter()
@@ -152,6 +155,21 @@ class HomeFragment : Fragment() {
     private fun showProgressBar() {
         binding.pbHome.visibility = View.VISIBLE
         isLoading = true
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (doubleBackToExitPressedOnce) {
+                    activity?.finish()
+                }
+                doubleBackToExitPressedOnce = true
+                Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+                Toast.makeText(requireContext(), "Double press to exit", Toast.LENGTH_SHORT).show()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
 
