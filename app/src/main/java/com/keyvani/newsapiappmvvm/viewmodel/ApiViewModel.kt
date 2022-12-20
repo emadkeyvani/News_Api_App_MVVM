@@ -19,10 +19,6 @@ class ApiViewModel @Inject constructor(private val repository: ApiRepository) : 
     var searchNewsPage = 1
     var breakingNewsPage = 1
     var breakingNewsResponse: NewsResponse? = null
-    var searchNewsResponse: NewsResponse? = null
-    var newSearchQuery: String? = null
-    var oldSearchQuery: String? = null
-
 
     init {
         getBreakingNews("us")
@@ -36,11 +32,6 @@ class ApiViewModel @Inject constructor(private val repository: ApiRepository) : 
 
     }
 
-    fun searchNews(searchQuery: String) = viewModelScope.launch {
-        searchNews.postValue(Resource.Loading())
-        val response = repository.searchNews(searchQuery, searchNewsPage)
-        searchNews.postValue(handleSearchNewsResponse(response))
-    }
 
     private fun handleBreakingNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
         if (response.isSuccessful) {
@@ -59,32 +50,21 @@ class ApiViewModel @Inject constructor(private val repository: ApiRepository) : 
         return Resource.Error(response.message())
     }
 
+    fun searchNews(searchQuery: String) = viewModelScope.launch {
+        searchNews.postValue(Resource.Loading())
+        val response = repository.searchNews(searchQuery, searchNewsPage)
+        searchNews.postValue(handleSearchNewsResponse(response))
+    }
+
     private fun handleSearchNewsResponse(response: Response<NewsResponse>): Resource<NewsResponse> {
 
-        if(response.isSuccessful) {
+        if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
                 return Resource.Success(resultResponse)
             }
         }
         return Resource.Error(response.message())
-        /*if (response.isSuccessful) {
-            response.body()?.let { resultResponse ->
 
-                if (searchNewsResponse == null || newSearchQuery != oldSearchQuery) {
-                    searchNewsPage = 1
-                    oldSearchQuery = newSearchQuery
-                    searchNewsResponse = resultResponse
-                    searchNewsResponse = resultResponse
-                } else {
-                    searchNewsPage++
-                    val oldNews = searchNewsResponse?.articles
-                    val newNews = resultResponse.articles
-                    oldNews?.addAll(newNews)
-                }
-                return Resource.Success(searchNewsResponse ?: resultResponse)
-            }
-        }
-        return Resource.Error(response.message())*/
     }
 
 
